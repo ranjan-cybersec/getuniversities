@@ -110,7 +110,7 @@ export default function Home() {
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 60% at 75% 50%, rgba(26,107,92,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
         <div style={{ position: "absolute", right: "48px", top: "120px", display: "flex", flexDirection: "column", gap: "16px" }}>
           <img src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=240&q=80" alt="MIT" style={{ width: "220px", height: "130px", objectFit: "cover", borderRadius: "16px", boxShadow: "0 8px 32px rgba(0,0,0,0.15)" }} />
-          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=240&q=80" alt="Campus" style={{ width: "220px", height: "130px", objectFit: "cover", borderRadius: "16px", boxShadow: "0 8px 32px rgba(0,0,0,0.15)", marginLeft: "40px" }} />
+          <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=240&q=80" alt="Campus" style={{ width: "220px", height: "130px", objectFit: "cover", borderRadius: "16px", boxShadow: "0 8px 32px rgba(0,0,0,0.15)", marginLeft: "40px" }} />
           <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=240&q=80" alt="Harvard" style={{ width: "220px", height: "130px", objectFit: "cover", borderRadius: "16px", boxShadow: "0 8px 32px rgba(0,0,0,0.15)" }} />
         </div>
 
