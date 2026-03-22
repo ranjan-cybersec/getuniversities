@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const countries = [
   { flag: "🇺🇸", name: "United States", count: "3,200+", bg: "#e8f0fb" },
@@ -29,25 +29,35 @@ const countries = [
 ];
 
 const universities = [
-  { name: "MIT", country: "🇺🇸 Cambridge, USA", rank: "#1", field: "Engineering & Technology", tuition: "$57,986/yr", tag: "STEM", tagColor: "#1a6b5c", acceptance: "4%", image: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=400&q=80" },
-  { name: "University of Oxford", country: "🇬🇧 Oxford, UK", rank: "#2", field: "Liberal Arts & Sciences", tuition: "$35,000/yr", tag: "Research", tagColor: "#1a3a5c", acceptance: "17%", image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&q=80" },
-  { name: "Harvard University", country: "🇺🇸 Cambridge, USA", rank: "#3", field: "Business, Law & Medicine", tuition: "$54,000/yr", tag: "Ivy League", tagColor: "#7c1a1a", acceptance: "3%", image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400&q=80" },
-  { name: "ETH Zurich", country: "🇨🇭 Zurich, Switzerland", rank: "#7", field: "Science & Technology", tuition: "$1,500/yr", tag: "Affordable", tagColor: "#1a6b3a", acceptance: "27%", image: "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?w=400&q=80" },
-  { name: "TU Berlin", country: "🇩🇪 Berlin, Germany", rank: "#148", field: "Engineering & Architecture", tuition: "FREE", tag: "Free Tuition", tagColor: "#1a6b3a", acceptance: "35%", image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=400&q=80" },
-  { name: "NUS Singapore", country: "🇸🇬 Singapore", rank: "#8", field: "Business & Computing", tuition: "$28,000/yr", tag: "Asia Top", tagColor: "#6b1a5c", acceptance: "5%", image: "https://images.unsplash.com/photo-1562774053-701939374585?w=400&q=80" },
+  { name: "MIT", country: "🇺🇸 Cambridge, USA", rank: "#1", field: "Engineering & Technology", tuition: "$57,986/yr", tag: "STEM", tagColor: "#1a6b5c", acceptance: "4%", image: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=800&q=95" },
+  { name: "University of Oxford", country: "🇬🇧 Oxford, UK", rank: "#2", field: "Liberal Arts & Sciences", tuition: "$35,000/yr", tag: "Research", tagColor: "#1a3a5c", acceptance: "17%", image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=95" },
+  { name: "Harvard University", country: "🇺🇸 Cambridge, USA", rank: "#3", field: "Business, Law & Medicine", tuition: "$54,000/yr", tag: "Ivy League", tagColor: "#7c1a1a", acceptance: "3%", image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=95" },
+  { name: "ETH Zurich", country: "🇨🇭 Zurich, Switzerland", rank: "#7", field: "Science & Technology", tuition: "$1,500/yr", tag: "Affordable", tagColor: "#1a6b3a", acceptance: "27%", image: "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?w=800&q=95" },
+  { name: "TU Berlin", country: "🇩🇪 Berlin, Germany", rank: "#148", field: "Engineering & Architecture", tuition: "FREE", tag: "Free Tuition", tagColor: "#1a6b3a", acceptance: "35%", image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&q=95" },
+  { name: "NUS Singapore", country: "🇸🇬 Singapore", rank: "#8", field: "Business & Computing", tuition: "$28,000/yr", tag: "Asia Top", tagColor: "#6b1a5c", acceptance: "5%", image: "https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=800&q=95" },
 ];
 
-const topCampuses = [
-  { img: "photo-1564981797816-1043664bf78d", name: "MIT", rank: "#1", country: "USA" },
-  { img: "photo-1516979187457-637abb4f9353", name: "Oxford", rank: "#2", country: "UK" },
-  { img: "photo-1541339907198-e08756dedf3f", name: "Harvard", rank: "#3", country: "USA" },
-  { img: "photo-1498243691581-b145c3f54a5a", name: "Stanford", rank: "#4", country: "USA" },
-  { img: "photo-1580537659466-0a9bfa916a54", name: "ETH Zurich", rank: "#7", country: "Switzerland" },
-  { img: "photo-1562774053-701939374585", name: "Cambridge", rank: "#5", country: "UK" },
-  { img: "photo-1523050854058-8df90110c9f1", name: "NUS", rank: "#8", country: "Singapore" },
-  { img: "photo-1467269204594-9661b134dd2b", name: "TU Berlin", rank: "#9", country: "Germany" },
-  { img: "photo-1607237138185-eedd9c632b0b", name: "UCL", rank: "#9", country: "UK" },
-  { img: "photo-1571260899304-425eee4c7efc", name: "UCLA", rank: "#10", country: "USA" },
+const slides = [
+  { id: "1564981797816-1043664bf78d", uni: "MIT", rank: "#1", country: "🇺🇸 USA", desc: "Massachusetts Institute of Technology" },
+  { id: "1568792923760-d70635a89fdc", uni: "MIT", rank: "#1", country: "🇺🇸 USA", desc: "MIT Campus — Cambridge, Massachusetts" },
+  { id: "1541339907198-e08756dedf3f", uni: "Harvard", rank: "#3", country: "🇺🇸 USA", desc: "Harvard University — Founded 1636" },
+  { id: "1562774053-701939374585", uni: "Harvard", rank: "#3", country: "🇺🇸 USA", desc: "Harvard Yard — The Historic Heart of Campus" },
+  { id: "1607237138185-eedd9c632b0b", uni: "Oxford", rank: "#2", country: "🇬🇧 UK", desc: "University of Oxford — Founded 1096" },
+  { id: "1516979187457-637abb4f9353", uni: "Oxford", rank: "#2", country: "🇬🇧 UK", desc: "Oxford's Historic Bodleian Library" },
+  { id: "1498243691581-b145c3f54a5a", uni: "Stanford", rank: "#5", country: "🇺🇸 USA", desc: "Stanford University — Silicon Valley" },
+  { id: "1571260899304-425eee4c7efc", uni: "Stanford", rank: "#5", country: "🇺🇸 USA", desc: "Stanford Memorial Church" },
+  { id: "1519452635265-7b1fbfd1e4e0", uni: "Cambridge", rank: "#4", country: "🇬🇧 UK", desc: "University of Cambridge — King's College" },
+  { id: "1523050854058-8df90110c9f1", uni: "Cambridge", rank: "#4", country: "🇬🇧 UK", desc: "Cambridge — 800 Years of Excellence" },
+  { id: "1580537659466-0a9bfa916a54", uni: "ETH Zurich", rank: "#6", country: "🇨🇭 CH", desc: "ETH Zurich — World Leader in Science" },
+  { id: "1606761568499-6d2451b23c66", uni: "ETH Zurich", rank: "#6", country: "🇨🇭 CH", desc: "ETH Zurich Main Building" },
+  { id: "1523580846011-d3a5bc25702b", uni: "NUS", rank: "#8", country: "🇸🇬 SG", desc: "National University of Singapore" },
+  { id: "1467269204594-9661b134dd2b", uni: "NUS", rank: "#8", country: "🇸🇬 SG", desc: "NUS — Asia's Top University" },
+  { id: "1564981797816-1043664bf78d", uni: "Imperial", rank: "#7", country: "🇬🇧 UK", desc: "Imperial College London" },
+  { id: "1571260899304-425eee4c7efc", uni: "Imperial", rank: "#7", country: "🇬🇧 UK", desc: "Imperial College — Science & Technology" },
+  { id: "1607237138185-eedd9c632b0b", uni: "Caltech", rank: "#9", country: "🇺🇸 USA", desc: "California Institute of Technology" },
+  { id: "1498243691581-b145c3f54a5a", uni: "Caltech", rank: "#9", country: "🇺🇸 USA", desc: "Caltech — Where Science Lives" },
+  { id: "1541339907198-e08756dedf3f", uni: "Chicago", rank: "#10", country: "🇺🇸 USA", desc: "University of Chicago" },
+  { id: "1519452635265-7b1fbfd1e4e0", uni: "Chicago", rank: "#10", country: "🇺🇸 USA", desc: "UChicago — Harper Memorial Library" },
 ];
 
 const programs = ["💻 Computer Science", "💼 MBA", "🏥 Medicine", "⚙️ Engineering", "⚖️ Law", "🏛️ Architecture", "🧠 Psychology", "📊 Data Science", "💹 Finance", "🎨 Design", "🏫 Education", "📈 Economics", "🧬 Biotechnology", "📱 Media Studies", "✈️ Aviation"];
@@ -70,12 +80,27 @@ export default function Home() {
   const [profile, setProfile] = useState({ educationLevel: "", grade: "", field: "", careerGoal: "" });
   const [profileComplete, setProfileComplete] = useState(false);
   const [recommendations, setRecommendations] = useState<typeof universities>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [fading, setFading] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFading(true);
+      setTimeout(() => {
+        setCurrentSlide(prev => (prev + 1) % slides.length);
+        setFading(false);
+      }, 600);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleProfileSubmit = () => {
     setRecommendations(universities.slice(0, 3));
     setProfileComplete(true);
     setShowProfileModal(false);
   };
+
+  const slide = slides[currentSlide];
 
   return (
     <main style={{ fontFamily: "'DM Sans', sans-serif", background: "#f8f6f1", color: "#1a1a1a", minHeight: "100vh" }}>
@@ -85,131 +110,143 @@ export default function Home() {
         html { scroll-behavior: smooth; }
         .hover-lift { transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
         .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
-        .nav-link { color: #666; text-decoration: none; font-size: 14px; transition: color 0.2s; }
-        .nav-link:hover { color: #1a1a1a; }
+        .nav-link { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .nav-link:hover { color: white; }
         .country-card { border-radius: 16px; padding: 20px; cursor: pointer; transition: all 0.2s; border: 1.5px solid transparent; }
         .country-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: #1a6b5c44; }
         .program-tag { padding: 10px 18px; background: white; border: 1.5px solid rgba(0,0,0,0.08); border-radius: 40px; font-size: 13px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
         .program-tag:hover { background: #1a6b5c; color: white; border-color: #1a6b5c; }
-        .search-input { width: 100%; padding: 16px 20px 16px 48px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: 2px solid rgba(0,0,0,0.08); border-radius: 14px; background: white; outline: none; transition: border-color 0.2s; }
-        .search-input:focus { border-color: #1a6b5c; }
-        .select-input { padding: 16px 20px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: 2px solid rgba(0,0,0,0.08); border-radius: 14px; background: white; outline: none; cursor: pointer; }
+        .search-input { width: 100%; padding: 16px 20px 16px 48px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: none; border-radius: 14px; background: rgba(255,255,255,0.15); color: white; outline: none; transition: background 0.2s; }
+        .search-input::placeholder { color: rgba(255,255,255,0.55); }
+        .search-input:focus { background: rgba(255,255,255,0.22); }
+        .select-input { padding: 16px 20px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: none; border-radius: 14px; background: rgba(255,255,255,0.15); color: white; outline: none; cursor: pointer; }
+        .select-input option { background: #1a2e1a; color: white; }
         ::-webkit-scrollbar { height: 0; width: 0; }
         .scroll-x { overflow-x: auto; }
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
         .modal { background: white; border-radius: 24px; padding: 40px; max-width: 560px; width: 90%; max-height: 90vh; overflow-y: auto; }
         .option-btn { width: 100%; padding: 14px 20px; border: 2px solid rgba(0,0,0,0.08); border-radius: 12px; background: white; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; text-align: left; transition: all 0.2s; margin-bottom: 8px; }
         .option-btn:hover, .option-btn.selected { border-color: #1a6b5c; color: #1a6b5c; background: #e8f5f1; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; border: none; padding: 0; }
+        .dot.active { background: white; width: 20px; border-radius: 4px; }
         @keyframes fadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         .fade-in { animation: fadeIn 0.5s ease forwards; }
-        .campus-img-wrap:hover .campus-overlay { opacity: 0.3 !important; }
-        .campus-img-wrap:hover img { transform: scale(1.05); }
-        .campus-img-wrap img { transition: transform 0.4s ease; }
+        @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        .slide-label { animation: slideUp 0.5s ease forwards; }
       `}</style>
 
-      {/* NAV */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: "rgba(248,246,241,0.96)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(0,0,0,0.06)", padding: "16px 48px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ fontFamily: "Fraunces, serif", fontSize: "22px", fontWeight: 700 }}>Get<span style={{ color: "#1a6b5c" }}>Universities</span></div>
-        <div style={{ display: "flex", gap: "28px", alignItems: "center" }}>
-          <a href="#search" className="nav-link">Search</a>
-          <a href="#countries" className="nav-link">Countries</a>
-          <a href="#rankings" className="nav-link">Rankings</a>
-          <a href="#programs" className="nav-link">Programs</a>
-          <a href="#" className="nav-link">Scholarships</a>
-          <button onClick={() => setShowProfileModal(true)} style={{ background: "#fff8e6", color: "#c8902a", border: "1.5px solid #c8902a44", padding: "10px 20px", borderRadius: "40px", fontSize: "14px", fontWeight: 500, cursor: "pointer" }}>✦ Get matched</button>
-          <a href="#" style={{ background: "#1a6b5c", color: "white", padding: "10px 22px", borderRadius: "40px", fontSize: "14px", fontWeight: 500, textDecoration: "none" }}>Sign up free</a>
-        </div>
-      </nav>
+      {/* HERO — FULLSCREEN SLIDESHOW */}
+      <section style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
 
-      {/* HERO */}
-      <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "120px 48px 80px", position: "relative", overflow: "hidden" }}>
-
-        {/* TOP 10 CAMPUS PHOTO GRID BACKGROUND */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
-          <div style={{
-            position: "absolute", right: 0, top: 0, bottom: 0,
-            width: "52%",
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gridTemplateRows: "repeat(5, 1fr)",
-            gap: "4px",
-            padding: "4px",
-          }}>
-            {topCampuses.map((u, i) => (
-              <div key={i} className="campus-img-wrap" style={{ position: "relative", overflow: "hidden", borderRadius: "8px" }}>
-                <img
-                  src={`https://images.unsplash.com/${u.img}?w=400&q=75`}
-                  alt={u.name}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                />
-                {/* Dark transparent overlay — keeps text readable */}
-                <div className="campus-overlay" style={{ position: "absolute", inset: 0, background: "rgba(10,20,14,0.52)", transition: "opacity 0.3s" }} />
-                {/* Rank + name badge */}
-                <div style={{ position: "absolute", bottom: "8px", left: "10px", right: "10px", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-                  <div>
-                    <div style={{ fontSize: "9px", color: "rgba(255,255,255,0.6)", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "2px" }}>{u.country}</div>
-                    <div style={{ fontSize: "12px", color: "white", fontWeight: 600, textShadow: "0 1px 4px rgba(0,0,0,0.8)", lineHeight: 1.2 }}>{u.name}</div>
-                  </div>
-                  <span style={{ background: "#c8902a", color: "white", fontSize: "10px", fontWeight: 700, padding: "2px 8px", borderRadius: "20px", whiteSpace: "nowrap" }}>{u.rank}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Strong left gradient so headline is crystal clear */}
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, #f8f6f1 42%, rgba(248,246,241,0.92) 52%, rgba(248,246,241,0.4) 68%, rgba(248,246,241,0.05) 100%)" }} />
-          {/* Top + bottom fades */}
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "100px", background: "linear-gradient(to bottom, #f8f6f1, transparent)" }} />
-          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "100px", background: "linear-gradient(to top, #f8f6f1, transparent)" }} />
+        {/* BACKGROUND IMAGE */}
+        <div style={{
+          position: "absolute", inset: 0,
+          opacity: fading ? 0 : 1,
+          transition: "opacity 0.6s ease",
+        }}>
+          <img
+            src={`https://images.unsplash.com/${slide.id}?w=1800&q=100&fit=crop&auto=format`}
+            alt={slide.uni}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
         </div>
 
-        {/* HERO CONTENT — sits above the background grid */}
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#e8f5f1", border: "1px solid #1a6b5c33", borderRadius: "40px", padding: "6px 16px", marginBottom: "24px", width: "fit-content" }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#1a6b5c", display: "inline-block" }}></span>
-            <span style={{ fontSize: "13px", color: "#1a6b5c", fontWeight: 500 }}>12,400+ universities · 195 countries · 50,000+ programs</span>
+        {/* OVERLAYS */}
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.6) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 60%)" }} />
+
+        {/* NAV — transparent over hero */}
+        <nav style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 10, padding: "20px 48px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ fontFamily: "Fraunces, serif", fontSize: "22px", fontWeight: 700, color: "white" }}>
+            Get<span style={{ color: "#c8902a" }}>Universities</span>
+          </div>
+          <div style={{ display: "flex", gap: "28px", alignItems: "center" }}>
+            <a href="#search-section" className="nav-link">Search</a>
+            <a href="#countries" className="nav-link">Countries</a>
+            <a href="#rankings" className="nav-link">Rankings</a>
+            <a href="#programs" className="nav-link">Programs</a>
+            <a href="#" className="nav-link">Scholarships</a>
+            <button onClick={() => setShowProfileModal(true)} style={{ background: "rgba(200,144,42,0.9)", color: "white", border: "none", padding: "10px 20px", borderRadius: "40px", fontSize: "14px", fontWeight: 500, cursor: "pointer" }}>✦ Get matched</button>
+            <a href="#" style={{ background: "white", color: "#1a1a1a", padding: "10px 22px", borderRadius: "40px", fontSize: "14px", fontWeight: 500, textDecoration: "none" }}>Sign up free</a>
+          </div>
+        </nav>
+
+        {/* HERO CONTENT */}
+        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 64px", zIndex: 5 }}>
+
+          {/* University label — changes with slide */}
+          <div key={currentSlide} className="slide-label" style={{ marginBottom: "20px" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "40px", padding: "8px 18px" }}>
+              <span style={{ background: "#c8902a", color: "white", fontSize: "11px", fontWeight: 700, padding: "2px 8px", borderRadius: "20px" }}>{slide.rank} World</span>
+              <span style={{ color: "white", fontSize: "13px", fontWeight: 500 }}>{slide.uni}</span>
+              <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "13px" }}>{slide.country}</span>
+            </div>
+            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "13px", marginTop: "10px", marginLeft: "4px" }}>{slide.desc}</div>
           </div>
 
-          <h1 style={{ fontFamily: "Fraunces, serif", fontSize: "clamp(48px, 6vw, 82px)", fontWeight: 900, lineHeight: 1.0, maxWidth: "640px", marginBottom: "24px" }}>
-            Your journey to the <em style={{ fontStyle: "italic", color: "#1a6b5c" }}>world's best</em> universities starts here.
+          <h1 style={{ fontFamily: "Fraunces, serif", fontSize: "clamp(52px, 7vw, 92px)", fontWeight: 900, lineHeight: 1.0, color: "white", maxWidth: "780px", marginBottom: "28px", textShadow: "0 2px 20px rgba(0,0,0,0.3)" }}>
+            Your journey to the{" "}
+            <em style={{ fontStyle: "italic", color: "#c8902a" }}>world's best</em>{" "}
+            universities starts here.
           </h1>
-          <p style={{ fontSize: "18px", color: "#555", maxWidth: "480px", lineHeight: 1.7, marginBottom: "48px", fontWeight: 300 }}>
-            Search, compare and apply to universities worldwide. Get AI-matched based on your education, grades and career goals.
+
+          <p style={{ fontSize: "18px", color: "rgba(255,255,255,0.75)", maxWidth: "520px", lineHeight: 1.7, marginBottom: "40px", fontWeight: 300 }}>
+            Search, compare and apply to 12,400+ universities worldwide. Get AI-matched based on your education and career goals.
           </p>
 
-          <div id="search" style={{ background: "white", borderRadius: "24px", padding: "24px", maxWidth: "680px", boxShadow: "0 8px 48px rgba(0,0,0,0.08)", border: "1px solid rgba(0,0,0,0.06)" }}>
-            <div style={{ display: "flex", gap: "12px", marginBottom: "16px" }}>
-              <div style={{ flex: 1, position: "relative" }}>
-                <span style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", fontSize: "18px" }}>🔍</span>
-                <input className="search-input" placeholder="Search university, program, city…" value={search} onChange={(e) => setSearch(e.target.value)} />
-              </div>
-              <select className="select-input" value={selectedCountry} onChange={(e) => setSelectedCountry(e.target.value)}>
-                <option>All Countries</option>
-                {countries.map(c => <option key={c.name}>{c.flag} {c.name}</option>)}
-              </select>
-              <button style={{ padding: "16px 28px", background: "#1a6b5c", color: "white", border: "none", borderRadius: "14px", fontFamily: "DM Sans, sans-serif", fontSize: "15px", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" }}>Search</button>
+          {/* SEARCH */}
+          <div style={{ display: "flex", gap: "12px", maxWidth: "680px", marginBottom: "20px" }}>
+            <div style={{ flex: 1, position: "relative" }}>
+              <span style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", fontSize: "18px" }}>🔍</span>
+              <input className="search-input" placeholder="Search university, program, city…" value={search} onChange={(e) => setSearch(e.target.value)} />
             </div>
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
-              <span style={{ fontSize: "12px", color: "#999" }}>Popular:</span>
-              {["MBA", "Computer Science", "Free tuition Germany", "Scholarships 2025", "Study in Canada", "Medicine UK"].map(tag => (
-                <span key={tag} onClick={() => setSearch(tag)} style={{ padding: "4px 12px", background: "#f8f6f1", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "20px", fontSize: "12px", cursor: "pointer", color: "#555" }}>{tag}</span>
-              ))}
-            </div>
+            <select className="select-input" value={selectedCountry} onChange={(e) => setSelectedCountry(e.target.value)}>
+              <option>All Countries</option>
+              {countries.map(c => <option key={c.name}>{c.flag} {c.name}</option>)}
+            </select>
+            <button style={{ padding: "16px 28px", background: "#1a6b5c", color: "white", border: "none", borderRadius: "14px", fontFamily: "DM Sans, sans-serif", fontSize: "15px", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" }}>Search</button>
           </div>
 
-          <div style={{ display: "flex", gap: "48px", marginTop: "48px" }}>
+          {/* Popular tags */}
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center", marginBottom: "48px" }}>
+            <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>Popular:</span>
+            {["MBA", "Computer Science", "Free tuition Germany", "Scholarships 2025", "Medicine UK"].map(tag => (
+              <span key={tag} onClick={() => setSearch(tag)} style={{ padding: "5px 14px", background: "rgba(255,255,255,0.12)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "20px", fontSize: "12px", cursor: "pointer", color: "rgba(255,255,255,0.85)" }}>{tag}</span>
+            ))}
+          </div>
+
+          {/* Stats */}
+          <div style={{ display: "flex", gap: "48px" }}>
             {[["12,400+", "Universities"], ["195", "Countries"], ["50,000+", "Programs"], ["2.4M", "Students helped"]].map(([num, label]) => (
               <div key={label}>
-                <div style={{ fontFamily: "Fraunces, serif", fontSize: "30px", fontWeight: 700 }}>{num}</div>
-                <div style={{ fontSize: "13px", color: "#999", marginTop: "4px" }}>{label}</div>
+                <div style={{ fontFamily: "Fraunces, serif", fontSize: "28px", fontWeight: 700, color: "white" }}>{num}</div>
+                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.55)", marginTop: "3px" }}>{label}</div>
               </div>
             ))}
           </div>
+        </div>
+
+        {/* SLIDE DOTS */}
+        <div style={{ position: "absolute", bottom: "32px", left: "50%", transform: "translateX(-50%)", display: "flex", gap: "6px", zIndex: 10 }}>
+          {slides.map((_, i) => (
+            <button key={i} className={`dot ${i === currentSlide ? "active" : ""}`}
+              onClick={() => { setFading(true); setTimeout(() => { setCurrentSlide(i); setFading(false); }, 300); }} />
+          ))}
+        </div>
+
+        {/* Slide counter */}
+        <div style={{ position: "absolute", bottom: "32px", right: "48px", color: "rgba(255,255,255,0.5)", fontSize: "13px", zIndex: 10 }}>
+          {String(currentSlide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+        </div>
+
+        {/* Scroll hint */}
+        <div style={{ position: "absolute", bottom: "32px", left: "48px", color: "rgba(255,255,255,0.4)", fontSize: "12px", zIndex: 10, display: "flex", alignItems: "center", gap: "6px" }}>
+          <span>↓</span> Scroll to explore
         </div>
       </section>
 
       {/* STUDENT PROFILE BANNER */}
-      <section style={{ margin: "0 48px 60px", background: "linear-gradient(135deg, #1a6b5c 0%, #0f4035 100%)", borderRadius: "24px", padding: "48px 60px", display: "grid", gridTemplateColumns: "1fr auto", gap: "40px", alignItems: "center" }}>
+      <section id="search-section" style={{ margin: "60px 48px", background: "linear-gradient(135deg, #1a6b5c 0%, #0f4035 100%)", borderRadius: "24px", padding: "48px 60px", display: "grid", gridTemplateColumns: "1fr auto", gap: "40px", alignItems: "center" }}>
         <div>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.1)", borderRadius: "40px", padding: "6px 14px", marginBottom: "16px" }}>
             <span>🎓</span>
@@ -266,7 +303,7 @@ export default function Home() {
                   </div>
                   <div style={{ fontSize: "13px", color: "#999", marginBottom: "12px" }}>{u.country}</div>
                   <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", borderTop: "1px solid rgba(0,0,0,0.06)", paddingTop: "12px" }}>
-                    <span style={{ color: "#666" }}>Rank <strong>{u.rank}</strong></span>
+                    <span>Rank <strong>{u.rank}</strong></span>
                     <span style={{ color: u.tuition === "FREE" ? "#1a6b5c" : "#1a1a1a", fontWeight: 500 }}>{u.tuition}</span>
                   </div>
                 </div>
@@ -314,7 +351,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* UNIVERSITIES WITH IMAGES */}
+      {/* TOP UNIVERSITIES */}
       <section id="rankings" style={{ padding: "72px 48px", background: "white" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "40px" }}>
           <div>
@@ -327,9 +364,9 @@ export default function Home() {
           {universities.map((u) => (
             <div key={u.name} className="hover-lift" style={{ background: "#f8f6f1", borderRadius: "20px", overflow: "hidden", border: "1px solid rgba(0,0,0,0.06)" }}>
               <div style={{ position: "relative" }}>
-                <img src={u.image} alt={u.name} style={{ width: "100%", height: "180px", objectFit: "cover" }} />
+                <img src={u.image} alt={u.name} style={{ width: "100%", height: "200px", objectFit: "cover" }} />
                 <span style={{ position: "absolute", top: "14px", right: "14px", background: u.tagColor, color: "white", padding: "4px 12px", borderRadius: "20px", fontSize: "11px", fontWeight: 500 }}>{u.tag}</span>
-                <span style={{ position: "absolute", top: "14px", left: "14px", background: "rgba(0,0,0,0.6)", color: "white", padding: "4px 12px", borderRadius: "20px", fontSize: "12px", fontWeight: 700 }}>{u.rank} World</span>
+                <span style={{ position: "absolute", top: "14px", left: "14px", background: "rgba(0,0,0,0.65)", color: "white", padding: "4px 12px", borderRadius: "20px", fontSize: "12px", fontWeight: 700 }}>{u.rank} World</span>
               </div>
               <div style={{ padding: "20px" }}>
                 <div style={{ fontFamily: "Fraunces, serif", fontSize: "20px", fontWeight: 700, marginBottom: "4px" }}>{u.name}</div>
@@ -356,11 +393,11 @@ export default function Home() {
           <h2 style={{ fontFamily: "Fraunces, serif", fontSize: "40px", fontWeight: 700 }}>Experience student life<br />around the world.</h2>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gridTemplateRows: "220px 220px", gap: "16px" }}>
-          <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=600&q=80" alt="Campus" style={{ gridRow: "1 / 3", width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
-          <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=400&q=80" alt="Students" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
-          <img src="https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=400&q=80" alt="Library" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
-          <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=400&q=80" alt="Graduation" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
-          <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=400&q=80" alt="Study" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
+          <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=800&q=95" alt="Campus" style={{ gridRow: "1 / 3", width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
+          <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=800&q=95" alt="Students" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
+          <img src="https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=800&q=95" alt="Library" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
+          <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=800&q=95" alt="Graduation" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
+          <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&q=95" alt="Study" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }} />
         </div>
       </section>
 
@@ -400,7 +437,7 @@ export default function Home() {
             <button style={{ background: "transparent", color: "white", border: "1.5px solid rgba(255,255,255,0.2)", padding: "16px 28px", borderRadius: "40px", fontFamily: "DM Sans, sans-serif", fontSize: "15px", cursor: "pointer" }}>Browse universities</button>
           </div>
         </div>
-        <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=500&q=80" alt="Students" style={{ width: "100%", height: "300px", objectFit: "cover", borderRadius: "20px", opacity: 0.85 }} />
+        <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=800&q=95" alt="Students" style={{ width: "100%", height: "300px", objectFit: "cover", borderRadius: "20px", opacity: 0.85 }} />
       </section>
 
       {/* FOOTER */}
@@ -508,3 +545,4 @@ export default function Home() {
     </main>
   );
 }
+
