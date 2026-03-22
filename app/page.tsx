@@ -42,8 +42,8 @@ const slides = [
   { url: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=1800&q=90", uni: "University of Oxford", rank: "#2", country: "🇬🇧 UK", desc: "Oxford's Iconic Bodleian Library" },
   { url: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=1800&q=90", uni: "ETH Zurich", rank: "#6", country: "🇨🇭 Switzerland", desc: "ETH Zurich — Main Building" },
   { url: "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=1800&q=90", uni: "University of Cambridge", rank: "#4", country: "🇬🇧 UK", desc: "Cambridge — 800 Years of Excellence" },
-  { url: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=1800&q=90", uni: "Stanford University", rank: "#5", country: "🇺🇸 USA", desc: "Stanford — The Quad at Golden Hour" },
-  { url: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=1800&q=90", uni: "MIT", rank: "#1", country: "🇺🇸 USA", desc: "MIT — The Great Dome" },
+  { url: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1800&q=90", uni: "Harvard University", rank: "#3", country: "🇺🇸 USA", desc: "Harvard — Widener Memorial Library" },
+  { url: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=1800&q=90", uni: "MIT", rank: "#1", country: "🇺🇸 USA", desc: "MIT — The Great Dome at Night" },
 ];
 
 const programs = [
@@ -59,6 +59,13 @@ const programs = [
   { icon: "🎨", name: "Design", count: "1,800+" },
   { icon: "🧬", name: "Biotechnology", count: "1,100+" },
   { icon: "📱", name: "Media Studies", count: "1,300+" },
+];
+
+const housing = [
+  { type: "Student Dormitory", uni: "On-campus housing", price: "From $400/mo", distance: "0 min walk", icon: "🏠", tag: "Most popular", tagColor: "#1a6b5c", desc: "University-managed rooms with meals, wifi and 24/7 security included." },
+  { type: "Private Studio", uni: "Near campus", price: "From $650/mo", distance: "5 min walk", icon: "🏢", tag: "Best value", tagColor: "#c8902a", desc: "Private studios and apartments within walking distance of campus." },
+  { type: "Shared Apartment", uni: "Student community", price: "From $300/mo", distance: "10 min away", icon: "🏘️", tag: "Cheapest", tagColor: "#1a3a5c", desc: "Share with other international students. Bills and internet included." },
+  { type: "Homestay", uni: "Local family", price: "From $500/mo", distance: "15 min away", icon: "🏡", tag: "Cultural", tagColor: "#6b1a5c", desc: "Live with a local family. Great for language learning and culture." },
 ];
 
 const educationLevels = ["High School", "Bachelor's", "Master's", "PhD"];
@@ -92,11 +99,6 @@ export default function Home() {
     setTimeout(() => { setCurrentSlide(i); setFading(false); }, 300);
   };
 
-  const handleProfileSubmit = () => {
-    setProfileComplete(true);
-    setShowProfileModal(false);
-  };
-
   const slide = slides[currentSlide];
 
   return (
@@ -105,19 +107,20 @@ export default function Home() {
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        .nav-link { color: rgba(255,255,255,0.88); text-decoration: none; font-size: 14px; transition: color 0.2s; letter-spacing: 0.2px; }
+        .nav-link { color: rgba(255,255,255,0.88); text-decoration: none; font-size: 14px; transition: color 0.2s; }
         .nav-link:hover { color: white; }
         .country-card { border-radius: 16px; padding: 22px; cursor: pointer; transition: all 0.25s; border: 1.5px solid transparent; }
         .country-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); border-color: #1a6b5c55; }
         .program-card { background: white; border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.25s; border: 1px solid rgba(0,0,0,0.06); text-align: center; }
         .program-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); border-color: #1a6b5c44; }
-        .search-input { width: 100%; padding: 18px 20px 18px 50px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: none; border-radius: 14px; background: rgba(255,255,255,0.14); color: white; outline: none; backdrop-filter: blur(10px); transition: background 0.2s; }
+        .housing-card { background: white; border-radius: 20px; padding: 28px; border: 1px solid rgba(0,0,0,0.06); transition: all 0.25s; cursor: pointer; }
+        .housing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); border-color: #1a6b5c33; }
+        .search-input { width: 100%; padding: 18px 20px 18px 50px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: none; border-radius: 14px; background: rgba(255,255,255,0.13); color: white; outline: none; backdrop-filter: blur(10px); transition: background 0.2s; }
         .search-input::placeholder { color: rgba(255,255,255,0.5); }
-        .search-input:focus { background: rgba(255,255,255,0.22); }
-        .select-input { padding: 18px 20px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: none; border-radius: 14px; background: rgba(255,255,255,0.14); color: white; outline: none; cursor: pointer; backdrop-filter: blur(10px); }
+        .search-input:focus { background: rgba(255,255,255,0.21); }
+        .select-input { padding: 18px 20px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: none; border-radius: 14px; background: rgba(255,255,255,0.13); color: white; outline: none; cursor: pointer; backdrop-filter: blur(10px); }
         .select-input option { background: #1a2e20; color: white; }
         ::-webkit-scrollbar { height: 0; width: 0; }
-        .scroll-x { overflow-x: auto; }
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px); }
         .modal { background: white; border-radius: 24px; padding: 44px; max-width: 560px; width: 90%; max-height: 90vh; overflow-y: auto; }
         .option-btn { width: 100%; padding: 14px 20px; border: 2px solid rgba(0,0,0,0.08); border-radius: 12px; background: white; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; text-align: left; transition: all 0.2s; margin-bottom: 8px; }
@@ -126,35 +129,30 @@ export default function Home() {
         .dot.active { background: white; width: 28px; border-radius: 4px; }
         @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         .slide-anim { animation: slideUp 0.5s ease forwards; }
-        @keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-        .fade-in-up { animation: fadeInUp 0.7s ease forwards; }
-        .tag-pill { padding: 5px 14px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.85); transition: all 0.2s; white-space: nowrap; }
-        .tag-pill:hover { background: rgba(255,255,255,0.22); color: white; }
+        .tag-pill { padding: 5px 14px; background: rgba(255,255,255,0.11); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.82); transition: all 0.2s; white-space: nowrap; }
+        .tag-pill:hover { background: rgba(255,255,255,0.2); color: white; }
       `}</style>
 
-      {/* ═══ HERO — FULLSCREEN SLIDESHOW ═══ */}
+      {/* ═══ HERO SLIDESHOW ═══ */}
       <section style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-
-        {/* Background image */}
         <div style={{ position: "absolute", inset: 0, opacity: fading ? 0 : 1, transition: "opacity 0.7s ease" }}>
           <img src={slide.url} alt={slide.uni} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
         </div>
-
-        {/* Overlays */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.72) 100%)" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 55%, transparent 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.08) 45%, rgba(0,0,0,0.72) 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.04) 55%, transparent 100%)" }} />
 
         {/* NAV */}
-        <nav style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 20, padding: "22px 56px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ fontFamily: "Fraunces, serif", fontSize: "24px", fontWeight: 700, color: "white", letterSpacing: "-0.5px" }}>
+        <nav style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 30, padding: "24px 56px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ fontFamily: "Fraunces, serif", fontSize: "24px", fontWeight: 700, color: "white", letterSpacing: "-0.3px", flexShrink: 0 }}>
             Get<span style={{ color: "#c8902a" }}>Universities</span>
           </div>
-          <div style={{ display: "flex", gap: "32px", alignItems: "center" }}>
+          <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
             <a href="#countries" className="nav-link">Countries</a>
             <a href="#programs" className="nav-link">Programs</a>
+            <a href="#housing" className="nav-link">Housing</a>
             <a href="#search-section" className="nav-link">Search</a>
-            <a href="#scholarships" className="nav-link">Scholarships</a>
-            <button onClick={() => setShowProfileModal(true)} style={{ background: "rgba(200,144,42,0.92)", color: "white", border: "none", padding: "11px 22px", borderRadius: "40px", fontSize: "14px", fontWeight: 500, cursor: "pointer", backdropFilter: "blur(8px)" }}>
+            <a href="#help" className="nav-link">Scholarships</a>
+            <button onClick={() => setShowProfileModal(true)} style={{ background: "rgba(200,144,42,0.92)", color: "white", border: "none", padding: "11px 22px", borderRadius: "40px", fontSize: "14px", fontWeight: 500, cursor: "pointer" }}>
               ✦ Get matched
             </button>
             <a href="#" style={{ background: "white", color: "#1a1a1a", padding: "11px 24px", borderRadius: "40px", fontSize: "14px", fontWeight: 600, textDecoration: "none" }}>Sign up free</a>
@@ -163,86 +161,78 @@ export default function Home() {
 
         {/* HERO CONTENT */}
         <div style={{ position: "absolute", inset: 0, display: "flex", zIndex: 5, alignItems: "stretch" }}>
-
-          {/* LEFT — quote + stats */}
-          <div style={{ flex: "0 0 52%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "100px 56px 100px" }}>
-
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.1)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.18)", borderRadius: "40px", padding: "7px 18px", marginBottom: "28px", width: "fit-content" }}>
-              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#4ade80", display: "inline-block" }}></span>
+          {/* LEFT */}
+          <div style={{ flex: "0 0 54%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "160px 56px 100px" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.1)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.16)", borderRadius: "40px", padding: "7px 18px", marginBottom: "28px", width: "fit-content" }}>
+              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#4ade80", display: "inline-block", flexShrink: 0 }}></span>
               <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.9)", fontWeight: 500 }}>12,400+ universities · 195 countries</span>
             </div>
 
-            <h1 style={{ fontFamily: "Fraunces, serif", fontSize: "clamp(46px, 5.5vw, 80px)", fontWeight: 900, lineHeight: 1.0, color: "white", marginBottom: "20px", textShadow: "0 2px 32px rgba(0,0,0,0.25)" }}>
+            <h1 style={{ fontFamily: "Fraunces, serif", fontSize: "clamp(44px, 5.2vw, 78px)", fontWeight: 900, lineHeight: 1.02, color: "white", marginBottom: "22px", textShadow: "0 2px 32px rgba(0,0,0,0.22)" }}>
               Your journey to<br />
               the <em style={{ fontStyle: "italic", color: "#c8902a" }}>world's best</em><br />
               universities<br />
               starts here.
             </h1>
 
-            <p style={{ fontSize: "17px", color: "rgba(255,255,255,0.7)", lineHeight: 1.7, marginBottom: "44px", fontWeight: 300, maxWidth: "400px" }}>
-              Search, compare and apply to top universities worldwide. Get AI-matched to your perfect campus.
+            <p style={{ fontSize: "17px", color: "rgba(255,255,255,0.68)", lineHeight: 1.7, marginBottom: "40px", fontWeight: 300, maxWidth: "400px" }}>
+              Search, compare and apply to top universities worldwide. Find housing near campus, scholarships and get AI-matched.
             </p>
 
-            <div style={{ display: "flex", gap: "12px", marginBottom: "12px" }}>
+            <div style={{ display: "flex", gap: "12px", marginBottom: "40px" }}>
               <button onClick={() => setShowProfileModal(true)} style={{ background: "#1a6b5c", color: "white", border: "none", padding: "15px 28px", borderRadius: "12px", fontFamily: "DM Sans, sans-serif", fontSize: "15px", fontWeight: 500, cursor: "pointer" }}>
                 ✦ Find my universities
               </button>
-              <a href="#search-section" style={{ background: "rgba(255,255,255,0.14)", backdropFilter: "blur(8px)", color: "white", border: "1px solid rgba(255,255,255,0.25)", padding: "15px 28px", borderRadius: "12px", fontSize: "15px", textDecoration: "none", display: "flex", alignItems: "center" }}>
-                Browse all →
+              <a href="#housing" style={{ background: "rgba(255,255,255,0.13)", backdropFilter: "blur(8px)", color: "white", border: "1px solid rgba(255,255,255,0.22)", padding: "15px 28px", borderRadius: "12px", fontSize: "15px", textDecoration: "none", display: "flex", alignItems: "center" }}>
+                🏠 Find housing →
               </a>
             </div>
 
-            {/* Stats row */}
-            <div style={{ display: "flex", gap: "36px", marginTop: "36px", paddingTop: "36px", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
-              {[["12,400+", "Universities"], ["195", "Countries"], ["50,000+", "Programs"], ["2.4M", "Students helped"]].map(([num, label]) => (
+            <div style={{ display: "flex", gap: "36px", paddingTop: "32px", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+              {[["12,400+", "Universities"], ["195", "Countries"], ["50,000+", "Programs"], ["2.4M", "Students"]].map(([num, label]) => (
                 <div key={label}>
-                  <div style={{ fontFamily: "Fraunces, serif", fontSize: "26px", fontWeight: 700, color: "white" }}>{num}</div>
-                  <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)", marginTop: "3px" }}>{label}</div>
+                  <div style={{ fontFamily: "Fraunces, serif", fontSize: "24px", fontWeight: 700, color: "white" }}>{num}</div>
+                  <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.48)", marginTop: "3px" }}>{label}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* RIGHT — university name */}
-          <div style={{ flex: "0 0 48%", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "0 56px 100px", alignItems: "flex-start" }}>
+          {/* RIGHT — university info */}
+          <div style={{ flex: "0 0 46%", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "0 56px 100px" }}>
             <div key={currentSlide} className="slide-anim">
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(200,144,42,0.9)", borderRadius: "40px", padding: "7px 18px", marginBottom: "16px" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(200,144,42,0.88)", borderRadius: "40px", padding: "7px 18px", marginBottom: "16px" }}>
                 <span style={{ color: "white", fontSize: "13px", fontWeight: 700 }}>{slide.rank} World Ranking</span>
               </div>
-              <div style={{ fontFamily: "Fraunces, serif", fontSize: "clamp(32px, 4.5vw, 58px)", fontWeight: 900, color: "white", lineHeight: 1.05, marginBottom: "12px", textShadow: "0 2px 24px rgba(0,0,0,0.4)" }}>
+              <div style={{ fontFamily: "Fraunces, serif", fontSize: "clamp(30px, 4vw, 54px)", fontWeight: 900, color: "white", lineHeight: 1.05, marginBottom: "12px", textShadow: "0 2px 24px rgba(0,0,0,0.4)" }}>
                 {slide.uni}
               </div>
-              <div style={{ fontSize: "16px", color: "rgba(255,255,255,0.8)", marginBottom: "8px", fontWeight: 400 }}>{slide.country}</div>
-              <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)", lineHeight: 1.5 }}>{slide.desc}</div>
+              <div style={{ fontSize: "16px", color: "rgba(255,255,255,0.78)", marginBottom: "8px" }}>{slide.country}</div>
+              <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.48)", lineHeight: 1.5 }}>{slide.desc}</div>
             </div>
           </div>
         </div>
 
-        {/* Slide dots */}
-        <div style={{ position: "absolute", bottom: "32px", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: "6px", zIndex: 10 }}>
-          <span style={{ color: "rgba(255,255,255,0.35)", fontSize: "12px", marginRight: "8px" }}>{String(currentSlide + 1).padStart(2, "0")}</span>
+        {/* Dots */}
+        <div style={{ position: "absolute", bottom: "28px", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: "6px", zIndex: 10 }}>
+          <span style={{ color: "rgba(255,255,255,0.32)", fontSize: "12px", marginRight: "8px" }}>{String(currentSlide + 1).padStart(2, "0")}</span>
           {slides.map((_, i) => (
             <button key={i} className={`dot ${i === currentSlide ? "active" : ""}`} onClick={() => goToSlide(i)} />
           ))}
-          <span style={{ color: "rgba(255,255,255,0.35)", fontSize: "12px", marginLeft: "8px" }}>{String(slides.length).padStart(2, "0")}</span>
+          <span style={{ color: "rgba(255,255,255,0.32)", fontSize: "12px", marginLeft: "8px" }}>{String(slides.length).padStart(2, "0")}</span>
         </div>
-
-        {/* Scroll hint */}
-        <div style={{ position: "absolute", bottom: "32px", right: "56px", color: "rgba(255,255,255,0.35)", fontSize: "12px", zIndex: 10, display: "flex", alignItems: "center", gap: "6px" }}>
-          Scroll to explore ↓
-        </div>
+        <div style={{ position: "absolute", bottom: "28px", right: "56px", color: "rgba(255,255,255,0.32)", fontSize: "12px", zIndex: 10 }}>Scroll to explore ↓</div>
       </section>
 
-      {/* ═══ SEARCH SECTION (appears on scroll) ═══ */}
+      {/* ═══ SEARCH SECTION ═══ */}
       <section id="search-section" style={{ background: "#0f2318", padding: "72px 56px" }}>
-        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-          <p style={{ fontSize: "12px", letterSpacing: "2.5px", textTransform: "uppercase", color: "#c8902a", fontWeight: 500, marginBottom: "12px", textAlign: "center" }}>Find your university</p>
-          <h2 style={{ fontFamily: "Fraunces, serif", fontSize: "42px", fontWeight: 700, color: "white", textAlign: "center", marginBottom: "40px", lineHeight: 1.15 }}>
+        <div style={{ maxWidth: "880px", margin: "0 auto" }}>
+          <p style={{ fontSize: "12px", letterSpacing: "2.5px", textTransform: "uppercase", color: "#c8902a", fontWeight: 500, marginBottom: "10px", textAlign: "center" }}>Find your university</p>
+          <h2 style={{ fontFamily: "Fraunces, serif", fontSize: "40px", fontWeight: 700, color: "white", textAlign: "center", marginBottom: "36px", lineHeight: 1.15 }}>
             Search 12,400+ universities<br />across 195 countries
           </h2>
-
-          <div style={{ background: "rgba(255,255,255,0.06)", borderRadius: "20px", padding: "24px", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <div style={{ display: "flex", gap: "12px", marginBottom: "16px" }}>
+          <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: "20px", padding: "24px", border: "1px solid rgba(255,255,255,0.07)", marginBottom: "16px" }}>
+            <div style={{ display: "flex", gap: "12px", marginBottom: "14px" }}>
               <div style={{ flex: 1, position: "relative" }}>
                 <span style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", fontSize: "18px" }}>🔍</span>
                 <input className="search-input" placeholder="University, program, or city…" value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -251,30 +241,26 @@ export default function Home() {
                 <option>All Countries</option>
                 {countries.map(c => <option key={c.name}>{c.flag} {c.name}</option>)}
               </select>
-              <button style={{ padding: "18px 32px", background: "#1a6b5c", color: "white", border: "none", borderRadius: "14px", fontFamily: "DM Sans, sans-serif", fontSize: "15px", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" }}>
-                Search
-              </button>
+              <button style={{ padding: "18px 32px", background: "#1a6b5c", color: "white", border: "none", borderRadius: "14px", fontFamily: "DM Sans, sans-serif", fontSize: "15px", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" }}>Search</button>
             </div>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
-              <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)" }}>Popular:</span>
+              <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.38)" }}>Popular:</span>
               {["MBA", "Free tuition Germany", "Scholarships 2025", "Medicine UK", "Computer Science", "Study in Canada"].map(tag => (
                 <span key={tag} className="tag-pill" onClick={() => setSearch(tag)}>{tag}</span>
               ))}
             </div>
           </div>
-
-          {/* Quick filters */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", marginTop: "20px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
             {[
               { icon: "💰", label: "Free tuition", sub: "Germany, Norway, France" },
               { icon: "🎓", label: "Scholarships", sub: "Fully funded programs" },
               { icon: "🌍", label: "Study abroad", sub: "Exchange programs" },
               { icon: "⚡", label: "Easy apply", sub: "No IELTS required" },
             ].map(f => (
-              <div key={f.label} style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "14px", padding: "16px", cursor: "pointer", transition: "all 0.2s" }}>
+              <div key={f.label} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "14px", padding: "16px", cursor: "pointer", transition: "all 0.2s" }}>
                 <div style={{ fontSize: "22px", marginBottom: "8px" }}>{f.icon}</div>
                 <div style={{ fontSize: "13px", fontWeight: 500, color: "white", marginBottom: "3px" }}>{f.label}</div>
-                <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)" }}>{f.sub}</div>
+                <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.38)" }}>{f.sub}</div>
               </div>
             ))}
           </div>
@@ -321,22 +307,71 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ STUDENT HELP / PROFILE SECTION ═══ */}
-      <section id="scholarships" style={{ padding: "80px 56px", background: "#f8f6f1" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", maxWidth: "1200px", margin: "0 auto" }}>
+      {/* ═══ HOUSING ═══ */}
+      <section id="housing" style={{ padding: "80px 56px", background: "#f8f6f1" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "44px" }}>
+          <div>
+            <p style={{ fontSize: "12px", letterSpacing: "2.5px", textTransform: "uppercase", color: "#c8902a", fontWeight: 500, marginBottom: "10px" }}>Student accommodation</p>
+            <h2 style={{ fontFamily: "Fraunces, serif", fontSize: "44px", fontWeight: 700, lineHeight: 1.1 }}>Find housing near<br />your campus.</h2>
+            <p style={{ fontSize: "16px", color: "#666", marginTop: "12px", fontWeight: 300, maxWidth: "440px", lineHeight: 1.6 }}>
+              Browse verified student accommodation close to every university. Filter by budget, distance and room type.
+            </p>
+          </div>
+          <a href="#" style={{ color: "#1a6b5c", fontSize: "14px", fontWeight: 500, textDecoration: "none", border: "1.5px solid #1a6b5c", padding: "10px 20px", borderRadius: "40px" }}>Browse all housing →</a>
+        </div>
 
-          {/* AI Match card */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px", marginBottom: "32px" }}>
+          {housing.map((h) => (
+            <div key={h.type} className="housing-card">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
+                <div style={{ fontSize: "36px" }}>{h.icon}</div>
+                <span style={{ background: h.tagColor, color: "white", padding: "3px 10px", borderRadius: "20px", fontSize: "11px", fontWeight: 500 }}>{h.tag}</span>
+              </div>
+              <div style={{ fontFamily: "Fraunces, serif", fontSize: "18px", fontWeight: 700, marginBottom: "4px" }}>{h.type}</div>
+              <div style={{ fontSize: "13px", color: "#888", marginBottom: "12px" }}>{h.uni}</div>
+              <div style={{ fontSize: "13px", color: "#555", lineHeight: 1.6, marginBottom: "16px" }}>{h.desc}</div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "14px", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+                <div>
+                  <div style={{ fontFamily: "Fraunces, serif", fontSize: "18px", fontWeight: 700, color: "#1a6b5c" }}>{h.price}</div>
+                  <div style={{ fontSize: "11px", color: "#999", marginTop: "2px" }}>per month</div>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontSize: "13px", fontWeight: 500, color: "#1a1a1a" }}>📍 {h.distance}</div>
+                  <div style={{ fontSize: "11px", color: "#999", marginTop: "2px" }}>to campus</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Housing search bar */}
+        <div style={{ background: "#0f2318", borderRadius: "20px", padding: "32px 40px", display: "flex", alignItems: "center", gap: "20px" }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontFamily: "Fraunces, serif", fontSize: "22px", fontWeight: 700, color: "white", marginBottom: "6px" }}>Search accommodation near your university</div>
+            <div style={{ fontSize: "14px", color: "rgba(255,255,255,0.5)" }}>Enter your university and we'll show verified housing options nearby</div>
+          </div>
+          <div style={{ display: "flex", gap: "10px", flexShrink: 0 }}>
+            <input placeholder="Enter your university…" style={{ padding: "14px 18px", background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "12px", color: "white", fontFamily: "DM Sans, sans-serif", fontSize: "14px", outline: "none", width: "240px" }} />
+            <button style={{ padding: "14px 24px", background: "#c8902a", color: "white", border: "none", borderRadius: "12px", fontFamily: "DM Sans, sans-serif", fontSize: "14px", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" }}>Find housing</button>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ STUDENT HELP ═══ */}
+      <section id="help" style={{ padding: "80px 56px", background: "white" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", maxWidth: "1200px", margin: "0 auto" }}>
+          {/* AI Match */}
           <div style={{ background: "linear-gradient(135deg, #1a6b5c 0%, #0a3d2e 100%)", borderRadius: "24px", padding: "48px", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", background: "rgba(255,255,255,0.04)", pointerEvents: "none" }} />
             <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.1)", borderRadius: "40px", padding: "6px 14px", marginBottom: "20px" }}>
-              <span style={{ fontSize: "14px" }}>🎓</span>
+              <span>🎓</span>
               <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.85)", fontWeight: 500 }}>AI-powered matching</span>
             </div>
             <h3 style={{ fontFamily: "Fraunces, serif", fontSize: "32px", fontWeight: 700, color: "white", lineHeight: 1.2, marginBottom: "14px" }}>
               Tell us your education.<br />We'll find your match.
             </h3>
-            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "15px", lineHeight: 1.65, marginBottom: "32px" }}>
-              Add your grades, field of study and career goals. Our AI analyzes 50+ factors to find universities where you'll thrive.
+            <p style={{ color: "rgba(255,255,255,0.58)", fontSize: "15px", lineHeight: 1.65, marginBottom: "28px" }}>
+              Add your grades, field of study and career goals. Our AI analyzes 50+ factors to find where you'll thrive.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "28px" }}>
               {[
@@ -347,7 +382,7 @@ export default function Home() {
                 <div key={item.label} style={{ background: "rgba(255,255,255,0.07)", borderRadius: "12px", padding: "12px 16px", display: "flex", gap: "12px", alignItems: "center" }}>
                   <span style={{ fontSize: "18px" }}>{item.icon}</span>
                   <div>
-                    <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.45)", marginBottom: "2px" }}>{item.label}</div>
+                    <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.42)", marginBottom: "2px" }}>{item.label}</div>
                     <div style={{ fontSize: "13px", color: profileComplete ? "#4ade80" : "rgba(255,255,255,0.75)", fontWeight: 500 }}>{item.value}</div>
                   </div>
                 </div>
@@ -358,37 +393,34 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Right side — two cards stacked */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-
-            {/* Scholarships card */}
+          {/* Right side */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
             <div style={{ background: "#0f2318", borderRadius: "24px", padding: "36px", flex: 1, position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(200,144,42,0.08)", pointerEvents: "none" }} />
+              <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(200,144,42,0.07)", pointerEvents: "none" }} />
               <div style={{ fontSize: "36px", marginBottom: "16px" }}>💰</div>
               <h3 style={{ fontFamily: "Fraunces, serif", fontSize: "24px", fontWeight: 700, color: "white", marginBottom: "10px" }}>Find scholarships</h3>
-              <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "14px", lineHeight: 1.65, marginBottom: "24px" }}>
-                Discover fully-funded scholarships, grants and bursaries at top universities worldwide. Filter by country, field and eligibility.
+              <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px", lineHeight: 1.65, marginBottom: "20px" }}>
+                Discover fully-funded scholarships, grants and bursaries at top universities worldwide.
               </p>
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "20px" }}>
                 {["Fully funded", "Merit-based", "Need-based", "Country-specific"].map(t => (
-                  <span key={t} style={{ padding: "4px 12px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "20px", fontSize: "12px", color: "rgba(255,255,255,0.65)" }}>{t}</span>
+                  <span key={t} style={{ padding: "4px 12px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)", borderRadius: "20px", fontSize: "12px", color: "rgba(255,255,255,0.6)" }}>{t}</span>
                 ))}
               </div>
               <a href="#" style={{ color: "#c8902a", fontSize: "14px", fontWeight: 500, textDecoration: "none" }}>Browse scholarships →</a>
             </div>
 
-            {/* Stats card */}
-            <div style={{ background: "white", borderRadius: "24px", padding: "32px", border: "1px solid rgba(0,0,0,0.06)" }}>
-              <h3 style={{ fontFamily: "Fraunces, serif", fontSize: "20px", fontWeight: 700, marginBottom: "20px", color: "#1a1a1a" }}>Students we've helped</h3>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+            <div style={{ background: "#f8f6f1", borderRadius: "24px", padding: "32px", border: "1px solid rgba(0,0,0,0.06)" }}>
+              <h3 style={{ fontFamily: "Fraunces, serif", fontSize: "20px", fontWeight: 700, marginBottom: "20px", color: "#1a1a1a" }}>Our impact</h3>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
                 {[
                   { num: "2.4M", label: "Students matched", color: "#1a6b5c" },
                   { num: "94%", label: "Satisfaction rate", color: "#c8902a" },
                   { num: "180+", label: "Partner universities", color: "#1a3a5c" },
                   { num: "$2.1B", label: "Scholarships found", color: "#6b1a5c" },
                 ].map(s => (
-                  <div key={s.label} style={{ background: "#f8f6f1", borderRadius: "12px", padding: "16px" }}>
-                    <div style={{ fontFamily: "Fraunces, serif", fontSize: "28px", fontWeight: 700, color: s.color }}>{s.num}</div>
+                  <div key={s.label} style={{ background: "white", borderRadius: "12px", padding: "16px", border: "1px solid rgba(0,0,0,0.05)" }}>
+                    <div style={{ fontFamily: "Fraunces, serif", fontSize: "26px", fontWeight: 700, color: s.color }}>{s.num}</div>
                     <div style={{ fontSize: "12px", color: "#888", marginTop: "4px" }}>{s.label}</div>
                   </div>
                 ))}
@@ -408,7 +440,7 @@ export default function Home() {
             <p style={{ fontSize: "14px", lineHeight: 1.7, maxWidth: "260px" }}>The world's most complete university discovery platform. Helping 2.4 million students find their perfect university.</p>
           </div>
           {[
-            { title: "Explore", links: ["Search Universities", "Rankings", "Scholarships", "Compare"] },
+            { title: "Explore", links: ["Search Universities", "Rankings", "Scholarships", "Housing"] },
             { title: "Programs", links: ["MBA", "Medicine", "Engineering", "Computer Science"] },
             { title: "Company", links: ["About", "Blog", "For Universities", "Contact"] },
           ].map((col) => (
@@ -490,7 +522,7 @@ export default function Home() {
                     </button>
                   ))}
                 </div>
-                <button onClick={handleProfileSubmit} disabled={!profile.careerGoal}
+                <button onClick={() => { setProfileComplete(true); setShowProfileModal(false); }} disabled={!profile.careerGoal}
                   style={{ width: "100%", padding: "16px", background: profile.careerGoal ? "#1a6b5c" : "#ccc", color: "white", border: "none", borderRadius: "14px", fontFamily: "DM Sans, sans-serif", fontSize: "16px", fontWeight: 500, cursor: profile.careerGoal ? "pointer" : "not-allowed" }}>
                   ✦ Find my university matches →
                 </button>
